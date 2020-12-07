@@ -603,7 +603,7 @@ stateAlert : state.reducer2
   newState.push(action.payload);
   return newState
 
-- 리액트 강의가 이해하기 쉽고 매우 좋습니다!
+- 리액트 강의가 이해하기 쉽고 매우 좋습니다!!
 
 # 튜터에게 궁금한 점
 
