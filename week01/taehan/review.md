@@ -603,6 +603,180 @@ stateAlert : state.reducer2
   newState.push(action.payload);
   return newState
 
+---
+
+8. 장바구니 기능 완성하기 가이드
+   state.find((a)=>{ return a === 'abc' });
+   state.findIndex((a)=>{ return a === 'abc' });
+
+---
+
+9. 리액트에서 자주쓰는 if문 작성패턴 5개
+
+1) if/else
+2) 삼항연산자
+3) &&
+4) switch/case
+5) 오브젝트 자료형을 응용한 enum
+   예를 들면 쇼핑몰에서 상품설명부분을 탭으로 만든다고 합시다.
+   탭안에는 뭐 경우에 따라서 상품정보 /배송정보 /환불약관 이런걸 보여줘야합니다.
+   현재 state가 info면 <p>상품정보</p>
+   현재 state가 shipping이면 <p>배송정보</p>
+
+function Component() {
+var 현재상태 = 'info';
+return (
+<div>
+{
+{
+info : <p>상품정보</p>,
+shipping : <p>배송관련</p>,
+refund : <p>환불약관</p>
+}[현재상태]
+}
+</div>
+)
+}
+이렇게 object 자료형으로 HTML을 다 정리해서 담은 다음
+마지막에 object{} 뒤에 [] 대괄호를 붙여서 “key값이 현재상태인 자료를 뽑겠습니다” 라고 써놓는겁니다.
+그럼 이제 현재상태라는 변수의 값에 따라서 원하는 HTML을 보여줄 수 있습니다.
+만약에 var 현재상태가 ‘info’면 info 항목에 저장된 <p>태그가 보여질 것이고
+만약에 var 현재상태가 ‘refund’면 refund 항목에 저장된 <p>태그가 보여지겠죠?
+
+---
+
+10. 성능잡기1. lazy loading / React devtools
+
+1) 이름없는 콜백 함수를 적게 써라
+   <button className="btn btn-danger" onClick={ homeClick }>HOME</button>
+   이런거는 함수를 만들어서 넣어줘라
+   function homeClick() { history.push('/') }
+
+ㅁ 오브젝트도 직접 넣지말고 변수로 만들어서 넣어라
+
+<tr style={ { color : 'wihte' } }> 이런거는
+
+const stlye = { color : 'wihte' }
+
+<tr style={style}>
+
+- 메모리 할당 간에 성능 이슈를 피할 수 있다.
+
+2. 애니메이션을 줄때, layout을 변경하는 속성들(width, margin, padding 등)은 렌더링 시간이 오래걸림
+   (브라우저가 힘들어 함)
+   transform, opcity 속성들을 사용하라.
+
+3. 컴포넌트 import할때 lazy loading
+   브라우저가 위에서부터 순차적으로 전체를 읽어오는데,
+   당장 안쓰는 컴포넌트는 안읽어도 되지 않냐?
+   import { lazy, Suspense } from 'react';
+   //import Detail from './components/Detail.js';
+   let Detail = lazy(() => import('./components/Detail.js'));
+
+<Suspense fallback={<div>로딩중이에요</div>}>
+<Detail shoes={ shoes } stock={ stock } setStock={setStock} />
+</Suspense>
+
+ㅁ React Devoloper Tools을 활용하라
+
+---
+
+11. 성능잡기2. 쓸데없는 재렌더링을 막는 memo
+    import { memo } from 'react';
+    function Child1(){
+    return <div>1</div>
+    }
+    let Child2 = memo( function(){
+    return <div>1</div>
+    })
+
+props가 바뀐 컴포넌트만 리렌더링 실행.
+단점 : 기존 props와 바뀐 props를 비교 연산 후 업데이트 할지 말지를 결정하는데,
+props가 많아지면, 느려질 수 있다.
+
+---
+
+12. PWA 10초만에 발행하기 (모바일앱인척 사기치기)
+
+Progressive Web App화 하려면
+
+1. manifest.json
+2. service-worker.js
+
+그냥 직접 만들어도 되고.
+create-react-app 썻으면 manifest.json 파일은 자동 생성 됨.
+
+service-worker.js 까지 자동으로 생성을 원한다면 프로젝트를 처음 만들 때 애초에
+npx create-react-app 프로젝트명 --template cra-template-pwa
+이렇게 터미널에 입력하라고 합니다.
+
+그리고 파일들 중에 index.js 하단에 보시면
+serviceWorkerRegistration.unregister();
+이 부분을
+serviceWorkerRegistration.register();
+이렇게 바꾸시면 끝입니다.
+
+manifest.json - 앱의 생김새 설정 파일
+service-worker.js - 앱구동 방식을 흉내낼 수 있게 도와줌(캐싱)
+
+웹호스팅 등록(gihub사용 등)
+개발자도구 > Application 탭, Lighthouse탭 활용
+
+ㅁ 설정을 바꾸고 싶은 경우?
+(html이 자주 바뀌어서, 캐싱에서 제외하고자 한다면.)
+precache-manifest....js에서 항목 삭제
+또는
+./node_modules/react-scripts/config/webpack.config.js
+
+new WorkboxWebpackPlugin.GenerateSW({
+clientsClaim: true,
+exclude: [/\.map$/, /asset-manifest\.json$/, /index.html/],
+})
+(▲구버전)
+
+new WorkboxWebpackPlugin.InjectManifest({
+swSrc,
+dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/, /index.html/],
+(▲신버전)
+
+---
+
+13. DB없이 데이터 저장하고싶으면 localStorage
+
+개발자도구 > Application 탭, Storage항목
+
+Local Storage vs Session Storage
+Session Storage는 브라우저를 끄면 데이터가 날라감
+Local Storage는 브라우저 청소(임시저장 삭제 실행) 해야만 날라감
+
+ㅁ 5MB 정도 사용가능하며, 텍스트로만 저장 됨
+
+ㅁ 사용법
+localStorage.setItem('name', 'kim')
+localStorage.getItem('name')
+
+> "kim"
+> localStorage.removeItem('name')
+
+- sessionStorage.setItem('name', 'kim')
+
+ㅁ array, object 형식으로 사용하려면?
+localStorage.setItem('obj', JSON.stringify({name:'kim'}))
+JSON.parse(localStorage.getItem('obj'))
+
+> {name: "kim"}
+
+- array의 set자료형은 중복을 허용하지 않아!
+  arr.push(id);
+  arr = new Set(arr);
+  arr = [...arr];
+
+---
+
+14. DB없이 데이터 저장하고싶으면 localStorage 2 (숙제해설)
+    끝.
+
 - 리액트 강의가 이해하기 쉽고 매우 좋습니다!
 
 # 튜터에게 궁금한 점
