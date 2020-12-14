@@ -1,0 +1,65 @@
+
+button {
+    width: 120px;
+    height: 40px;
+    background-color: #004fff;
+    /*마우스로 갖다댈 시 경계선을 없앤다*/
+    border : none;
+    color: white;
+    box-shadow: 0 4px 16px rgba(0, 79, 255, 0.3);
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    position : absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+button:focus{
+/*버튼에 클릭돼서 focus 됐을떄 이 형태를 없애라*/
+    outline: 0;
+}
+
+button:hover{
+    background-color: rgba(0, 79, 255, 0.9);
+    cusor: pointer;
+    box-shadow : 0 2px 4px rgba(0, 79, 255, 0.5);
+    /*마우스 커서를 포인터 느낌*/
+}
+
+article{
+    width: 100%;
+    padding: 20px;
+    font-size: 15px;
+    background-color: #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+h1{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+article h1{
+    font-size: 20px;
+    margin:0;
+}
+
+article p{
+    margin:0;
+}
+
+.dark-mode{
+    background-color: black;
+}
+
+.dark-mode h1, .dark-mode p{
+    color:#ffffff
+}
+
+.dark-mode > h1 {
+    /*부모 바로 아래 자식의 스타일을 씌울떄*/
+}
+
+
