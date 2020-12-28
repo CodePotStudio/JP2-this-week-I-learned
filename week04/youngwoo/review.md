@@ -166,7 +166,7 @@ JWT는 `Json Web Token`의 약자로서 인증에 필요한 정보들을 암호�
 
 ---
 
-출처
+출처.
 
 https://velog.io/@surim014/HTTP%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80
 
