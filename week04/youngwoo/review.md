@@ -177,4 +177,5 @@ https://tansfil.tistory.com/58?category=255594
 ---
 
 # 튜터에게 궁금한 점
-1. `session`을 관리 할 때 `redis`를 쓰는 이유는 무엇인가요? 또, `mysql`보다 빠른 이유는 무엇인가요?
+1. `Session`을 관리 할 때 `redis`를 쓰는 이유는 무엇인가요? 또, `mysql`보다 빠른 이유는 무엇인가요?
+2. 쇼핑몰 프로젝트를 진행하는데 `상품들 JSON data`를 받을 수 있는 사이트가 있을까요?
