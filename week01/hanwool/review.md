@@ -40,7 +40,3 @@ function printName(firstname) {
 }
 https://gmlwjd9405.github.io/2019/04/20/function-declaration-vs-function-expression.html
 ```
-
-
-# 튜터에게 궁금한 점
-- 렉시컬 스코핑의 개념이 정확하게 이해가 되지 않습니다.
