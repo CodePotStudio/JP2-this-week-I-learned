@@ -1,4 +1,4 @@
-# 이번주 리뷰
+# 챌린지 1주차 리뷰
 <br>
 
 ## lexical scoping
