@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>place items</title>
+    <style>
+        body {
+            margin: 1em;
+            font-size: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, Bazier Square,
+            Noto Sans KR, Segoe UI, Apple SD Gothic Neo, Roboto, Helvetica Neue,
+            Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+            Noto Color Emoji;
+        }
+
+        .container {
+            display: grid;
+            margin: 0.5em 0;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: 100px 500px 100px;
+            grid-template-areas:
+                        "header header"
+                        "side-bar main"
+                        "footer footer";
+        }
+
+        .container > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: white;
+        }
+
+        .header {
+            grid-area: header;
+            background-color: #3f29ef;
+        }
+
+        .side-bar {
+            grid-area: side-bar;
+            background-color: #38dab0;
+        }
+
+        .main {
+            grid-area: main;
+            background-color: #fdc35a;
+        }
+
+        .footer {
+            grid-area: footer;
+            background-color: #e13338;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">Header</div>
+    <div class="side-bar">Side-Bar</div>
+    <div class="main">Main</div>
+    <div class="footer">Footer</div>
+</div>
+</body>
